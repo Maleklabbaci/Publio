@@ -1,0 +1,1 @@
+{"name":"publio-limiteur-test-ne-pas-deployer","main":"worker-limiteur-test.mjs","compatibility_date":"2026-11-20","r2_buckets":[{"binding":"PUBLIO_R2","bucket_name":"publio-prive"}]}

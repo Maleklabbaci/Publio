@@ -3448,9 +3448,23 @@ function tenantBase(l){
   if (!TENANT_SLUG.test(slug)) return null;
   if (!tenantCache.has(slug)){
     let db = null;
-    try { db = JSON.parse(fs.readFileSync(path.join(TENANT_DOSSIER, slug, 'publio.json'), 'utf8')); }
-    catch (e) { db = tenantVide(); }
-    if (!db || typeof db !== 'object') db = tenantVide();
+    const dir = path.join(TENANT_DOSSIER, slug);
+    try {
+      db = JSON.parse(fs.readFileSync(path.join(dir, 'publio.json'), 'utf8'));
+    } catch (e) {
+      // Seul un projet entièrement nouveau peut partir d'une base vide.
+      // Une base existante absente, illisible ou corrompue ne doit jamais
+      // être remplacée silencieusement par une base vide.
+      if (e.code === 'ENOENT' && !fs.existsSync(dir)) db = tenantVide();
+      else {
+        console.error('  ! données du projet indisponibles (' + slug + ') : ' + e.message);
+        throw new Error('Données du projet indisponibles. Aucune modification enregistrée.');
+      }
+    }
+    if (!db || typeof db !== 'object' || Array.isArray(db)) {
+      console.error('  ! données du projet invalides (' + slug + ')');
+      throw new Error('Données du projet indisponibles. Aucune modification enregistrée.');
+    }
     db.canaux = Array.isArray(db.canaux) ? db.canaux : [];
     db.regles = Array.isArray(db.regles) ? db.regles : [];
     db.posts = Array.isArray(db.posts) ? db.posts : [];

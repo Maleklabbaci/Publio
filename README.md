@@ -1,3 +1,5 @@
+> **Chantier Cloudflare non déployable :** voir `LIRE-EN-PREMIER-CHANTIER.md`. Aucun vrai compte client ne doit utiliser ce code en ligne.
+
 # Publio
 
 Projet en cours : landing et pages publiques, interface client, moteur Node.js, base des automatisations et compte local de test.

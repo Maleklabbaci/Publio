@@ -1,0 +1,1 @@
+{"name":"publio-http-test-ne-pas-deployer","main":"../auth-http-experimental.mjs","compatibility_date":"2026-11-20","vars":{"LOCAL_TEST_ONLY":"1"},"r2_buckets":[{"binding":"PUBLIO_R2","bucket_name":"publio-prive"}],"assets":{"directory":"./assets-locaux","binding":"ASSETS","run_worker_first":true}}
